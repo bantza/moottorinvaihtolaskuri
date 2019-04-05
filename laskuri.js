@@ -264,32 +264,6 @@ function calculate() {
   $('#resultLiterPower').html(newLiterPowerText);
 }
 
-$('#submitbutton').click(function() {
-  calculate();
-});
-
-$('#maxbutton').click(function() {
-  if (!validate()) {
-    calculate();
-    return;
-  }
-
-  let newPower = getMaxPower();
-  let newConvertedPower = convertPowerFromDIN(newPower, 'DIN hp (SI)');
-  $('#newPower').val(newPower);
-  $('#newPowerHp').val(newConvertedPower);
-
-  let btnObj = $('#newInputPower').siblings('div.input-group-btn').find('button');
-  newConvertedPower = convertPowerFromDIN(newPower, $(btnObj).val());
-  $('#newInputPower').val(newConvertedPower);
-
-  let oldSize = floatValue($('#comparisonSize').val());
-  let newSize = Math.floor(oldSize * 1.25);
-  $('#newSize').val(newSize);
-
-  calculate();
-});
-
 function calculatePower(input) {
   let btnObj = $(input).siblings('div.input-group-btn').find('button');
   let newPower = convertPowerToDIN(floatValue($(input).val()), $(btnObj).val());
@@ -298,30 +272,58 @@ function calculatePower(input) {
   $(input).parent().siblings('div.input-group.hp').find('input[readonly]').val(newConvertedPower);
 }
 
-$('.dropdown-item').click(function() {
-  let btnObj = $(this).parent().siblings('button');
-  $(btnObj).text($(this).text());
-  $(btnObj).val($(this).text());
+$(function() {
+  $('#submitbutton').click(function() {
+    calculate();
+  });
 
-  let input = $(btnObj).parent().siblings('input');
-  calculatePower(input);
+  $('#maxbutton').click(function() {
+    if (!validate()) {
+      calculate();
+      return;
+    }
+
+    let newPower = getMaxPower();
+    let newConvertedPower = convertPowerFromDIN(newPower, 'DIN hp (SI)');
+    $('#newPower').val(newPower);
+    $('#newPowerHp').val(newConvertedPower);
+
+    let btnObj = $('#newInputPower').siblings('div.input-group-btn').find('button');
+    newConvertedPower = convertPowerFromDIN(newPower, $(btnObj).val());
+    $('#newInputPower').val(newConvertedPower);
+
+    let oldSize = floatValue($('#comparisonSize').val());
+    let newSize = Math.floor(oldSize * 1.25);
+    $('#newSize').val(newSize);
+
+    calculate();
+  });
+  
+  $('.dropdown-item').click(function() {
+    let btnObj = $(this).parent().siblings('button');
+    $(btnObj).text($(this).text());
+    $(btnObj).val($(this).text());
+
+    let input = $(btnObj).parent().siblings('input');
+    calculatePower(input);
+    calculate();
+  });
+
+  $('.input-power').change(function() {
+    calculatePower(this);
+  });
+
+  $('.input-power').keyup(function() {
+    calculatePower(this);
+  });
+
+  $('input').change(function() {
+    calculate();
+  });
+
+  $('#precision').text(precision);
+  $('#siHorsePower').text(formatFloatValue(siHorsePower));
+  $('#uscHorsePower').text(formatFloatValue(uscHorsePower));
+  $('#maxbutton').click();
   calculate();
 });
-
-$('.input-power').change(function() {
-  calculatePower(this);
-});
-
-$('.input-power').keyup(function() {
-  calculatePower(this);
-});
-
-$('input').change(function() {
-  calculate();
-});
-
-$('#precision').text(precision);
-$('#siHorsePower').text(formatFloatValue(siHorsePower));
-$('#uscHorsePower').text(formatFloatValue(uscHorsePower));
-$('#maxbutton').click();
-calculate();
