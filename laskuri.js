@@ -1,3 +1,4 @@
+window.onload=function(){
 var precision = 4;
 var siHorsePower = 0.73549875;
 var uscHorsePower = 0.7457;
@@ -272,7 +273,6 @@ function calculatePower(input) {
   $(input).parent().siblings('div.input-group.hp').find('input[readonly]').val(newConvertedPower);
 }
 
-$(function() {
   $('#submitbutton').click(function() {
     calculate();
   });
@@ -326,4 +326,4 @@ $(function() {
   $('#uscHorsePower').text(formatFloatValue(uscHorsePower));
   $('#maxbutton').click();
   calculate();
-});
+}
