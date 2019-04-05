@@ -361,8 +361,8 @@ window.onload=function(){
   $('#precision').text(precision);
   $('#siHorsePower').text(formatFloatValue(siHorsePower));
   $('#uscHorsePower').text(formatFloatValue(uscHorsePower));
-  $('.cc .input-size').keyup();
-  $('.kg .input-weight').keyup();
   $('#maxbutton').click();
   calculate();
+  $('.cc .input-size').keyup();
+  $('.kg .input-weight').keyup();
 }
