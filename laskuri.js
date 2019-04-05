@@ -278,22 +278,22 @@ window.onload=function(){
   function calculateSize(input) {
     if (input.id == 'comparisonSizeIn' || input.id == 'newSizeIn') {
       let ccSize = Math.ceil(floatValue($(input).val()) * cubicInch);
-      $(input).parent().siblings('div.input-group.cc').find('input[readonly]').val(ccSize);
+      $(input).parent().siblings('div.input-group.cc').find('input').val(ccSize);
     }
     else {
       let inchSize = Math.round(floatValue($(input).val()) / cubicInch);
-      $(input).parent().siblings('div.input-group.in').find('input[readonly]').val(inchSize);
+      $(input).parent().siblings('div.input-group.in').find('input').val(inchSize);
     }
   }
 
   function calculateWeight(input) {
     if (input.id == 'comparisonWeightLb' || input.id == 'newWeightLb') {
       let kgWeight = Math.ceil(floatValue($(input).val()) * pound);
-      $(input).parent().siblings('div.input-group.kg').find('input[readonly]').val(kgWeight);
+      $(input).parent().siblings('div.input-group.kg').find('input').val(kgWeight);
     }
     else {
       let lbWeight = Math.round(floatValue($(input).val()) / pound);
-      $(input).parent().siblings('div.input-group.lb').find('input[readonly]').val(lbWeight);
+      $(input).parent().siblings('div.input-group.lb').find('input').val(lbWeight);
     }
   }
 
