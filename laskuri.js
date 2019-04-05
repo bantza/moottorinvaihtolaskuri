@@ -108,6 +108,8 @@ window.onload=function(){
 
     if (newWeight == 0) {
       newWeight = oldWeight;
+      $('#newWeight').val(Math.round(newWeight));
+      $('#newWeight').keyup();
     }
 
     let oldWeight2Power = (oldWeight / oldPower);
@@ -190,6 +192,7 @@ window.onload=function(){
     if (newSize == 0) {
       newSize = Math.floor(oldSize * 1.25);
       $('#newSize').val(newSize);
+      $('#newSize').keyup();
     }
 
     let resultSize = round(newSize / oldSize);
@@ -214,6 +217,7 @@ window.onload=function(){
     if (newWeight == 0) {
       newWeight = oldWeight;
       $('#newWeight').val($('#comparisonWeight').val());
+      $('#newWeight').keyup();
     }
 
     let oldWeight2Power = oldWeight / oldPower;
@@ -319,6 +323,7 @@ window.onload=function(){
     let oldSize = floatValue($('#comparisonSize').val());
     let newSize = Math.floor(oldSize * 1.25);
     $('#newSize').val(newSize);
+    $('#newSize').keyup();
 
     calculate();
   });
