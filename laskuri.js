@@ -2,8 +2,14 @@ window.onload=function(){
   var precision = 4;
   var siHorsePower = 0.73549875;
   var uscHorsePower = 0.7457;
-  var cubicInch = 2.54 * 2.54 * 2.54;
-  var pound = 0.45359237; 
+  var pound = 0.45359237;
+  var weight2PowerRatios = {
+    1: [ 20, -12 ],
+    2: [ 20, 10 ],
+    3: [ 15, 7 ],
+    4: [ 10, 5 ],
+    5: [ 5, 4 ],
+  };
 
   function floatValue(value) {
     if (value == null || value == '') {
@@ -101,7 +107,6 @@ window.onload=function(){
   
   function getMaxPower() {
     let oldPower = floatValue($('#comparisonPower').val());
-    let newPower = oldPower * 1.2;
 
     let oldWeight = floatValue($('#comparisonWeight').val());
     let newWeight = floatValue($('#newWeight').val());
@@ -113,19 +118,20 @@ window.onload=function(){
     }
 
     let oldWeight2Power = (oldWeight / oldPower);
-    let newWeight2Power = (newWeight / newPower);
+    let newWeight2Power;
 
-    if (newWeight2Power < 7) {
-      if (oldWeight2Power <= 10) {
-        let newPercentPower = newWeight / (oldWeight2Power * 0.7);
-        let newWeightPower = newWeight / 5;
-        newPower = Math.min(newPower, newWeightPower);
-        newPower = Math.min(newPower, newPercentPower);
+    for (let entry in weight2PowerRatios) {
+      let w2p = weight2PowerRatios[entry][0];
+      let w2pmax = weight2PowerRatios[entry][1];
+      if (w2pmax < 0 && oldWeight2Power > w2p) {
+        newWeight2Power = w2pmax * -1;
       }
-      else {
-        newPower = Math.min(newPower, newWeight / 7);
+      else if (oldWeight2Power <= w2p) {
+        newWeight2Power = w2pmax;
       }
     }
+
+    let newPower = newWeight / newWeight2Power;
 
     return Math.floor(newPower);
   }
@@ -146,13 +152,9 @@ window.onload=function(){
 
   function calculate() {
     $('#resultPower').text('');
-    $('#resultSize').text('');
     $('#resultWeight2Power').text('');
-    $('#resultLiterPower').text('');
     $('#resultPower').removeClass('bg-success bg-danger bg-warning');
-    $('#resultSize').removeClass('bg-success bg-danger bg-warning');
     $('#resultWeight2Power').removeClass('bg-success bg-danger bg-warning');
-    $('#resultLiterPower').removeClass('bg-success bg-danger bg-warning');
 
     if (!validate()) {
       return;
@@ -178,38 +180,13 @@ window.onload=function(){
       $('#resultPower').addClass('bg-success');
     }
     else if (resultPower > 1.2) {
-      resultPowerText += '<br>Teho ei saa kasvaa yli 20 %.';
+      resultPowerText += '<br>Teho kasvaa yli 20 %. Muutettava vertailuajoneuvoa vastaavaksi ja sovelletaan omamassa-teho-suhdetta.';
       $('#resultPower').addClass('bg-danger');
     }
     else {
       $('#resultPower').addClass('bg-warning');
     }
     $('#resultPower').html(resultPowerText);
-
-    let oldSize = floatValue($('#comparisonSize').val());
-    let newSize = floatValue($('#newSize').val());
-
-    if (newSize == 0) {
-      newSize = Math.floor(oldSize * 1.25);
-      $('#newSize').val(newSize);
-      $('#newSize').keyup();
-    }
-
-    let resultSize = round(newSize / oldSize);
-
-    let resultSizeText = 'Iskutilavuuden kasvu ' + formatPercentValue(resultSize - 1);
-
-    if (resultSize < 1.25) {
-      $('#resultSize').addClass('bg-success');
-    }
-    else if (resultSize > 1.25) {
-      resultSizeText += '<br>Iskutilavuus ei saa kasvaa yli 25 %.'
-      $('#resultSize').addClass('bg-danger');
-    }
-    else {
-      $('#resultSize').addClass('bg-warning');
-    }
-    $('#resultSize').html(resultSizeText);
 
     let oldWeight = floatValue($('#comparisonWeight').val());
     let newWeight = floatValue($('#newWeight').val());
@@ -225,50 +202,44 @@ window.onload=function(){
 
     let resultWeight2PowerText = 'Omamassan suhde tehoon ' + formatFloatValue(newWeight2Power) + ' kg/kW';
 
-    if (round(newWeight2Power) < 7) {
-      if (round(oldWeight2Power) <= 10) {
-        resultWeight2PowerText += '<br>Vanha suhde ' + formatFloatValue(oldWeight2Power) + ' kg/kW';
-        resultWeight2PowerText += '<br>Vanha suhde on alle 10 kg/kW, uusi suhde ei saa pienentyä yli 30 % eikä mennä alle 5 kg/kW.';
-        if (round(newWeight2Power) < 5 || round(1 - newWeight2Power / oldWeight2Power) > 0.3) {
-          $('#resultWeight2Power').addClass('bg-danger');
+    let weight2PowerClass = 'bg-success';
+
+    for (let entry in weight2PowerRatios) {
+      let w2p = weight2PowerRatios[entry][0];
+      let w2pmax = weight2PowerRatios[entry][1];
+      if (w2pmax < 0 && oldWeight2Power > w2p) {
+        w2pmax *= -1;
+        resultWeight2PowerText = '<br>Vanha suhde ' + formatFloatValue(oldWeight2Power) + ' kg/kW<br>Vanha suhde on yli ' + w2p + ' kg/kW, uusi suhde ei saa mennä alle ' + w2pmax + ' kg/kW.';
+        if (newWeight2Power < w2pmax) {
+          weight2PowerClass = 'bg-danger';
         }
-        else if (round(newWeight2Power) == 5 || round(1 - newWeight2Power / oldWeight2Power) == 0.3) {
-          $('#resultWeight2Power').addClass('bg-warning');
+        else if (round(newWeight2Power) == w2pmax) {
+          weight2PowerClass = 'bg-warning';
         }
         else {
-          $('#resultWeight2Power').addClass('bg-success');
+          weight2PowerClass = 'bg-success';
         }
       }
-      else {
-        resultWeight2PowerText += '<br>Vanha suhde on yli 10 kg/kW, uusi suhde ei saa olla alle 7 kg/kW.';
-        $('#resultWeight2Power').addClass('bg-danger');
+      else if (oldWeight2Power <= w2p) {
+        resultWeight2PowerText = '<br>Vanha suhde ' + formatFloatValue(oldWeight2Power) + ' kg/kW<br>Vanha suhde on alle ' + w2p + ' kg/kW, uusi suhde ei saa mennä alle ' + w2pmax + ' kg/kW.';
+        if (newWeight2Power < w2pmax) {
+          weight2PowerClass = 'bg-danger';
+        }
+        else if (round(newWeight2Power) == w2pmax) {
+          weight2PowerClass = 'bg-warning';
+        }
+        else {
+          weight2PowerClass = 'bg-success';
+        }
       }
     }
-    else if (round(newWeight2Power) == 7) {
-      $('#resultWeight2Power').addClass('bg-warning');
-    }
-    else {
-      $('#resultWeight2Power').addClass('bg-success');
-    }
+    $('#resultWeight2Power').addClass(weight2PowerClass);
+
+    resultWeight2PowerText = 'Omamassan suhde tehoon ' + formatFloatValue(newWeight2Power) + ' kg/kW' + resultWeight2PowerText;
 
     $('#resultWeight2Power').html(resultWeight2PowerText);
 
-    let newLiterPower = round(newPower / newSize * 1000);
 
-    let newLiterPowerText = 'Litrateho ' + formatFloatValue(newLiterPower) + ' kW/l';
-
-    if (newLiterPower < 30) {
-      $('#resultLiterPower').addClass('bg-warning');
-      newLiterPowerText += '<br>Rekisteriotteeseen tulee merkitä moottorin teho ja polttoaineensyöttölaitteiston merkki ja malli.';
-    }
-    else if (newLiterPower == 30) {
-      $('#resultLiterPower').addClass('bg-warning');
-    }
-    else {
-      $('#resultLiterPower').addClass('bg-success');
-    }
-
-    $('#resultLiterPower').html(newLiterPowerText);
   }
 
   function calculatePower(input) {
@@ -277,17 +248,6 @@ window.onload=function(){
     let newConvertedPower = convertPowerFromDIN(newPower, 'DIN hp (SI)');
     $(input).parent().siblings('div.input-group.kw').find('input[readonly]').val(newPower);
     $(input).parent().siblings('div.input-group.hp').find('input[readonly]').val(newConvertedPower);
-  }
-
-  function calculateSize(input) {
-    if (input.id == 'comparisonSizeIn' || input.id == 'newSizeIn') {
-      let ccSize = Math.ceil(floatValue($(input).val()) * cubicInch);
-      $(input).parent().siblings('div.input-group.cc').find('input').val(ccSize);
-    }
-    else {
-      let inchSize = Math.round(floatValue($(input).val()) / cubicInch);
-      $(input).parent().siblings('div.input-group.in').find('input').val(inchSize);
-    }
   }
 
   function calculateWeight(input) {
@@ -320,11 +280,6 @@ window.onload=function(){
     newConvertedPower = convertPowerFromDIN(newPower, $(btnObj).val());
     $('#newInputPower').val(newConvertedPower);
 
-    let oldSize = floatValue($('#comparisonSize').val());
-    let newSize = Math.floor(oldSize * 1.25);
-    $('#newSize').val(newSize);
-    $('#newSize').keyup();
-
     calculate();
   });
   
@@ -346,10 +301,6 @@ window.onload=function(){
     calculatePower(this);
   });
 
-  $('.input-size').keyup(function() {
-    calculateSize(this);
-  });
-
   $('.input-weight').keyup(function() {
     calculateWeight(this);
   });
@@ -363,6 +314,5 @@ window.onload=function(){
   $('#uscHorsePower').text(formatFloatValue(uscHorsePower));
   $('#maxbutton').click();
   calculate();
-  $('.cc .input-size').keyup();
   $('.kg .input-weight').keyup();
 }

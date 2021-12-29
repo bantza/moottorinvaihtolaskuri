@@ -1,28 +1,32 @@
+body {
+  background-color: #eee;
+}
+
 form {
-  margin: 10px;
+  margin: 1em;
 }
 
 h3 {
   color: #666 !important;
-  margin: 5px;
+  margin: 0.5em;
 }
 
 header {
   color: #666;
   font-weight: bold;
   font-size: 1.1em;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 section {
-  max-width: 300px;
+  background-color: #f8f8f8;
+  max-width: 18em;
   display: inline-block;
-  float: left;
-  margin: 5px;
+  margin: 0.5em;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 0.5em;
+  padding: 1em;
 }
 
 form > div {
@@ -31,8 +35,8 @@ form > div {
 }
 
 footer {
-  margin: 10px;
-  margin-top: 30px;
+  margin: 1em;
+  margin-top: 3em;
   clear: both;
   font-size: 0.8em;
 }
@@ -44,16 +48,23 @@ footer h3 {
 input:read-only {
   background-color: #f6f6f6 !important;
 }
-
+.form-group {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+.input-group {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
 #result div {
-  padding: 5px 10px 5px 10px;
-  border-radius: 5px;
-  margin: 5px;
+  padding: 0.5em 1em 0.5em 1em;
+  border-radius: 0.5em;
+  margin: 0.5em 0 0.5em 0;
   color: white;
 }
 
 #result header {
-  margin-top: 10px;
+  margin-top: 1em;
 }
 
 .bg-warning {
