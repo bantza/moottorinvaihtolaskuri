@@ -1,3 +1,6 @@
+:root{
+  --bs-warning-rgb: 250,128,7;
+}
 body {
   background-color: #eee;
 }
@@ -20,13 +23,21 @@ header {
 }
 
 section {
+  box-sizing: border-box;
   background-color: #f8f8f8;
+  min-width: 13em;
+  width: calc(33% - 1em);
   max-width: 18em;
   display: inline-block;
   margin: 0.5em;
   border: 1px solid #ccc;
   border-radius: 0.5em;
   padding: 1em;
+}
+section#result  {
+  min-width: 18em;
+  width: calc(33% - 1em);
+  max-width: 37em;
 }
 
 form > div {
@@ -77,3 +88,21 @@ input:read-only {
   border-color: #f00 !important;
 }
 
+@media (max-width: 60em) { 
+  section {
+    width: calc(50% - 1.5em);
+  }
+  section#result {
+    width: calc(100% - 1.5em);
+  }
+}
+@media (max-width: 31em) { 
+  section {
+    width: calc(100% - 1em);
+  }
+  section#result {
+    min-width: 13em;
+
+    width: calc(100% - 1em);
+  }
+}

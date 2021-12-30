@@ -23,7 +23,7 @@
         Moottorin vaihto- ja virityslaskuri
       </h3>
 
-      <div>
+      <!-- <div> -->
         <section id="comparison">
           <header>Vertailuajoneuvo</header>
           <div class="form-group">
@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="comparisonWeight">Auton omamassa</label>
+            <label for="comparisonWeight">Omamassa</label>
             <div class="input-group lb">
               <input type="number" class="input-weight form-control" id="comparisonWeightLb" value="" aria-describedby="basic-addon3lb">
               <span class="input-group-text" id="basic-addon3lb">lb</span>
@@ -94,7 +94,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="newWeight">Omamassa muutoksen jälkeen</label>
+            <label for="newWeight">Omamassa</label>
             <div class="input-group lb">
               <input type="number" class="input-weight form-control" id="newWeightLb" value="" aria-describedby="basic-addon6lb">
               <span class="input-group-text" id="basic-addon6lb">lb</span>
@@ -105,17 +105,19 @@
             </div>
           </div>
         </section>
-      </div>
+      <!-- </div> -->
 
-      <div>
+      <!-- <div> -->
         <section id="result">
-          <button id="submitbutton" type="button" class="btn btn-primary">Laske</button>
-          <button id="maxbutton" type="button" class="btn btn-secondary">Maksimit</button>
+          <div class="form-group">
+            <button id="submitbutton" type="button" class="btn btn-primary">Laske</button>
+            <button id="maxbutton" type="button" class="btn btn-secondary">Maksimit</button>
+          </div>
           <header>Tulokset</header>
           <div id="resultPower"></div>
           <div id="resultWeight2Power"></div>
         </section>
-      </div>
+      <!-- </div> -->
     </form>
     <div style="clear: both;">
 
