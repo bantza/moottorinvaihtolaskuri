@@ -1,4 +1,11 @@
-window.onload=function(){
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  $('html').attr('data-bs-theme','dark');
+}
+else {
+  $('html').attr('data-bs-theme','light');
+}
+
+window.onload = function () {
   var precision = 4;
   var siHorsePower = 0.73549875;
   var uscHorsePower = 0.7457;
@@ -153,8 +160,8 @@ window.onload=function(){
   function calculate() {
     $('#resultPower').text('');
     $('#resultWeight2Power').text('');
-    $('#resultPower').removeClass('bg-success bg-danger bg-warning');
-    $('#resultWeight2Power').removeClass('bg-success bg-danger bg-warning');
+    $('#resultPower').removeClass('alert-success alert-danger alert-warning');
+    $('#resultWeight2Power').removeClass('alert-success alert-danger alert-warning');
 
     if (!validate()) {
       return;
@@ -177,14 +184,14 @@ window.onload=function(){
     let resultPowerText = 'Tehon kasvu ' + formatPercentValue(resultPower - 1);
 
     if (resultPower < 1.2) {
-      $('#resultPower').addClass('bg-success');
+      $('#resultPower').addClass('alert-success');
     }
     else if (resultPower > 1.2) {
       resultPowerText += '<br>Teho kasvaa yli 20 %. Muutettava vertailuajoneuvoa vastaavaksi ja sovelletaan omamassa-teho-suhdetta.';
-      $('#resultPower').addClass('bg-danger');
+      $('#resultPower').addClass('alert-danger');
     }
     else {
-      $('#resultPower').addClass('bg-warning');
+      $('#resultPower').addClass('alert-warning');
     }
     $('#resultPower').html(resultPowerText);
 
@@ -202,7 +209,7 @@ window.onload=function(){
 
     let resultWeight2PowerText = 'Omamassan suhde tehoon ' + formatFloatValue(newWeight2Power) + ' kg/kW';
 
-    let weight2PowerClass = 'bg-success';
+    let weight2PowerClass = 'alert-success';
 
     for (let entry in weight2PowerRatios) {
       let w2p = weight2PowerRatios[entry][0];
@@ -211,25 +218,25 @@ window.onload=function(){
         w2pmax *= -1;
         resultWeight2PowerText = '<br>Vanha suhde ' + formatFloatValue(oldWeight2Power) + ' kg/kW<br>Vanha suhde on yli ' + w2p + ' kg/kW, uusi suhde ei saa mennä alle ' + w2pmax + ' kg/kW.';
         if (newWeight2Power < w2pmax) {
-          weight2PowerClass = 'bg-danger';
+          weight2PowerClass = 'alert-danger';
         }
         else if (round(newWeight2Power) == w2pmax) {
-          weight2PowerClass = 'bg-warning';
+          weight2PowerClass = 'alert-warning';
         }
         else {
-          weight2PowerClass = 'bg-success';
+          weight2PowerClass = 'alert-success';
         }
       }
       else if (oldWeight2Power <= w2p) {
         resultWeight2PowerText = '<br>Vanha suhde ' + formatFloatValue(oldWeight2Power) + ' kg/kW<br>Vanha suhde on alle ' + w2p + ' kg/kW, uusi suhde ei saa mennä alle ' + w2pmax + ' kg/kW.';
         if (newWeight2Power < w2pmax) {
-          weight2PowerClass = 'bg-danger';
+          weight2PowerClass = 'alert-danger';
         }
         else if (round(newWeight2Power) == w2pmax) {
-          weight2PowerClass = 'bg-warning';
+          weight2PowerClass = 'alert-warning';
         }
         else {
-          weight2PowerClass = 'bg-success';
+          weight2PowerClass = 'alert-success';
         }
       }
     }
@@ -243,7 +250,7 @@ window.onload=function(){
   }
 
   function calculatePower(input) {
-    let btnObj = $(input).siblings('div.input-group-btn').find('button');
+    let btnObj = $(input).parent().find('button');
     let newPower = convertPowerToDIN(floatValue($(input).val()), $(btnObj).val());
     let newConvertedPower = convertPowerFromDIN(newPower, 'DIN hp (SI)');
     $(input).parent().siblings('div.input-group.kw').find('input[readonly]').val(newPower);
@@ -284,11 +291,11 @@ window.onload=function(){
   });
   
   $('.dropdown-item').click(function() {
-    let btnObj = $(this).parent().siblings('button');
+    let btnObj = $(this).parent().parent().siblings('button');
     $(btnObj).text($(this).text());
     $(btnObj).val($(this).text());
 
-    let input = $(btnObj).parent().siblings('input');
+    let input = $(btnObj).siblings('input');
     calculatePower(input);
     calculate();
   });
@@ -307,6 +314,18 @@ window.onload=function(){
 
   $('input').change(function() {
     calculate();
+  });
+  $('input').dblclick(function(){
+    $(this).select();
+  });
+
+  $('#flexSwitchCheckDefault').click(function () {
+    if ($('html').attr('data-bs-theme') == 'dark') {
+      $('html').attr('data-bs-theme','light')
+    }
+    else {
+      $('html').attr('data-bs-theme','dark')
+    }
   });
 
   $('#precision').text(precision);

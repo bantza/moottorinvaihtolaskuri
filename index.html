@@ -1,134 +1,149 @@
-<html>
+<html lang="fi" data-bs-theme="light">
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
     <title>Moottorin vaihto- ja virityslaskuri</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="robots" content="noindex, nofollow">
-    <meta name="googlebot" content="noindex, nofollow">
+    <!--<meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-    crossorigin="anonymous"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
 
     <link rel="stylesheet" type="text/css" href="laskuri.css">
     <script src="laskuri.js"></script>
   </head>
-  <body>
+  <body class="bg-body">
     <form>
-      <h3>
-        Moottorin vaihto- ja virityslaskuri
-      </h3>
-
-      <!-- <div> -->
-        <section id="comparison">
-          <header>Vertailuajoneuvo</header>
-          <div class="form-group">
-            <label for="comparisonInputPower">Teho</label>
-            <div class="input-group">
-              <input required type="number" class="input-power form-control" id="comparisonInputPower" value="100">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                DIN kW
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">DIN kW</a></li>
-                <li><a class="dropdown-item" href="#">SAE net kW</a></li>
-                <li><a class="dropdown-item" href="#">SAE gross kW</a></li>
-                <li><a class="dropdown-item" href="#">DIN hp (SI)</a></li>
-                <li><a class="dropdown-item" href="#">DIN hp (USC/IU)</a></li>
-                <li><a class="dropdown-item" href="#">SAE net hp (USC/IU)</a></li>
-                <li><a class="dropdown-item" href="#">SAE gross hp (USC/IU)</a></li>
-              </ul>
-            </div>
-            <div class="input-group hp">
-              <input readonly type="number" class="form-control" id="comparisonPowerHp" value="136" aria-describedby="basic-addon1hp">
-              <span class="input-group-text" id="basic-addon1hp">DIN hp (SI)</span>
-            </div>
-            <div class="input-group kw">
-              <input readonly type="number" class="form-control" id="comparisonPower" value="100" aria-describedby="basic-addon1">
-              <span class="input-group-text" id="basic-addon1">DIN kW</span>
-            </div>
+    <div class="container-xxl">
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-7 text-center">
+          <h1 class="text-body-tertiary my-1 py-3">
+            <i class="bi bi-car-front-fill"></i> Moottorin vaihto- ja virityslaskuri
+          </h1>
+        </div>
+        <div class="col-xl-5 col-lg-8 col-md-10 col-12 my-auto text-center position-relative">
+          <div class="order-xl-2 order-1 my-auto d-flex position-absolute bottom-0 end-0">
+            <button type="button" class="fs-1 btn border-0" id="flexSwitchCheckDefault" title="Vaalea/tumma teema">
+              <i class="bi bi-lightbulb"></i>
+            </button>
           </div>
-          <div class="form-group">
-            <label for="comparisonWeight">Omamassa</label>
-            <div class="input-group lb">
-              <input type="number" class="input-weight form-control" id="comparisonWeightLb" value="" aria-describedby="basic-addon3lb">
-              <span class="input-group-text" id="basic-addon3lb">lb</span>
-            </div>
-            <div class="input-group kg">
-              <input required type="number" class="input-weight form-control" id="comparisonWeight" value="1500" aria-describedby="basic-addon3">
-              <span class="input-group-text" id="basic-addon3">kg</span>
-            </div>
+          <div class="py-2 text-body-tertiary fs-6">1.3.2021 voimaan tulleiden sääntöjen mukaan</div>
           </div>
-        </section>
-
-        <section id="new">
-          <header>Muutettu ajoneuvo</header>
-          <div class="form-group">
-            <label for="newPower">Teho</label>
-            <div class="input-group">
-              <input type="number" class="input-power form-control" id="newInputPower" value="">
-                <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                DIN kW
-              </button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#">DIN kW</a></li>
-                <li><a class="dropdown-item" href="#">SAE net kW</a></li>
-                <li><a class="dropdown-item" href="#">SAE gross kW</a></li>
-                <li><a class="dropdown-item" href="#">DIN hp (SI)</a></li>
-                <li><a class="dropdown-item" href="#">DIN hp (USC/IU)</a></li>
-                <li><a class="dropdown-item" href="#">SAE net hp (USC/IU)</a></li>
-                <li><a class="dropdown-item" href="#">SAE gross hp (USC/IU)</a></li>
-              </ul>
-            </div>
-            <div class="input-group hp">
-              <input readonly type="text" class="form-control" id="newPowerHp" value="" aria-describedby="basic-addon4hp">
-              <span class="input-group-text" id="basic-addon4hp">DIN hp (SI)</span>
-            </div>
-            <div class="input-group kw">
-              <input readonly type="text" class="form-control" id="newPower" value="" aria-describedby="basic-addon4">
-              <span class="input-group-text" id="basic-addon4">DIN kW</span>
-            </div>
+      </div>
+      
+      <div class="container-xxl">
+        <div class="row g-3 justify-content-center">
+          <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-5 col-sm-6 ">
+            <section id="comparison" class="border rounded bg-light-subtle shadow px-3 py-4">
+              <h4 class="text-body-tertiary">Vertailuajoneuvo</h4>
+              <div class="form-group">
+                <label for="comparisonInputPower">Teho</label>
+                <div class="input-group">
+                  <input required type="number" class="input-power form-control form-control-lg" id="comparisonInputPower" value="100" title="Vertailuajoneuvon teho" />
+                  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    DIN kW
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">DIN kW</a></li>
+                    <li><a class="dropdown-item" href="#">SAE net kW</a></li>
+                    <li><a class="dropdown-item" href="#">SAE gross kW</a></li>
+                    <li><a class="dropdown-item" href="#">DIN hp (SI)</a></li>
+                    <li><a class="dropdown-item" href="#">DIN hp (USC/IU)</a></li>
+                    <li><a class="dropdown-item" href="#">SAE net hp (USC/IU)</a></li>
+                    <li><a class="dropdown-item" href="#">SAE gross hp (USC/IU)</a></li>
+                  </ul>
+                </div>
+                <div class="input-group hp">
+                  <input readonly type="number" class="form-control bg-body-tertiary" id="comparisonPowerHp" value="136" aria-describedby="basic-addon1hp" title="Vertailuajoneuvon teho hevosvoimissa" />
+                  <span class="input-group-text" id="basic-addon1hp">DIN hp (SI)</span>
+                </div>
+                <div class="input-group kw">
+                  <input readonly type="number" class="form-control bg-body-tertiary" id="comparisonPower" value="100" aria-describedby="basic-addon1" title="Vertailuajoneuvon teho kilowateissa" />
+                  <span class="input-group-text" id="basic-addon1">DIN kW</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="comparisonWeight">Omamassa</label>
+                <div class="input-group lb">
+                  <input type="number" class="input-weight form-control" id="comparisonWeightLb" value="" aria-describedby="basic-addon3lb" title="Vertailuajoneuvon massa paunoina" />
+                  <span class="input-group-text" id="basic-addon3lb">lb</span>
+                </div>
+                <div class="input-group kg">
+                  <input required type="number" class="input-weight form-control form-control-lg" id="comparisonWeight" value="1500" aria-describedby="basic-addon3" title="Vertailuajoneuvon massa kilogrammoina" />
+                  <span class="input-group-text" id="basic-addon3">kg</span>
+                </div>
+              </div>
+            </section>
           </div>
-          <div class="form-group">
-            <label for="newWeight">Omamassa</label>
-            <div class="input-group lb">
-              <input type="number" class="input-weight form-control" id="newWeightLb" value="" aria-describedby="basic-addon6lb">
-              <span class="input-group-text" id="basic-addon6lb">lb</span>
+          <div class="col-xxl-3 col-xl-3 col-lg-4 col-md-5 col-sm-6 ">
+            <section id="new" class="border rounded bg-light-subtle shadow px-3 py-4">
+            <h4 class="text-body-tertiary">Muutettu ajoneuvo</h4>
+            <div class="form-group">
+              <label for="newPower">Teho</label>
+              <div class="input-group">
+                <input type="number" class="input-power form-control form-control-lg" id="newInputPower" value="" title="Muutetun ajoneuvon teho" />
+                  <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  DIN kW
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#">DIN kW</a></li>
+                  <li><a class="dropdown-item" href="#">SAE net kW</a></li>
+                  <li><a class="dropdown-item" href="#">SAE gross kW</a></li>
+                  <li><a class="dropdown-item" href="#">DIN hp (SI)</a></li>
+                  <li><a class="dropdown-item" href="#">DIN hp (USC/IU)</a></li>
+                  <li><a class="dropdown-item" href="#">SAE net hp (USC/IU)</a></li>
+                  <li><a class="dropdown-item" href="#">SAE gross hp (USC/IU)</a></li>
+                </ul>
+              </div>
+              <div class="input-group hp">
+                <input readonly type="text" class="form-control bg-body-tertiary" id="newPowerHp" value="" aria-describedby="basic-addon4hp" title="Muutetun ajoneuvon teho hevosvoimissa" />
+                <span class="input-group-text" id="basic-addon4hp">DIN hp (SI)</span>
+              </div>
+              <div class="input-group kw">
+                <input readonly type="text" class="form-control bg-body-tertiary" id="newPower" value="" aria-describedby="basic-addon4" title="Muutetun ajoneuvon teho kilowateissa" />
+                <span class="input-group-text" id="basic-addon4">DIN kW</span>
+              </div>
             </div>
-            <div class="input-group kg">
-              <input type="number" class="input-weight form-control" id="newWeight" value="" aria-describedby="basic-addon6">
-              <span class="input-group-text" id="basic-addon6">kg</span>
+            <div class="form-group">
+              <label for="newWeight">Omamassa</label>
+              <div class="input-group lb">
+                <input type="number" class="input-weight form-control" id="newWeightLb" value="" aria-describedby="basic-addon6lb" title="Muutetun ajoneuvon massa paunoina" />
+                <span class="input-group-text" id="basic-addon6lb">lb</span>
+              </div>
+              <div class="input-group kg">
+                <input type="number" class="input-weight form-control form-control-lg" id="newWeight" value="" aria-describedby="basic-addon6" title="Muutetun ajoneuvon massa kilogrammoina" />
+                <span class="input-group-text" id="basic-addon6">kg</span>
+              </div>
             </div>
-          </div>
-        </section>
-      <!-- </div> -->
-
-      <!-- <div> -->
-        <section id="result">
-          <div class="form-group">
-            <button id="submitbutton" type="button" class="btn btn-primary">Laske</button>
-            <button id="maxbutton" type="button" class="btn btn-secondary">Maksimit</button>
-          </div>
-          <header>Tulokset</header>
-          <div id="resultPower"></div>
-          <div id="resultWeight2Power"></div>
-        </section>
-      <!-- </div> -->
+          </section>
+        </div>
+        <div class="col-xxl-6 col-xl-6 col-lg-8 col-md-10 col-sm-12 ">
+          <section id="result" class="border rounded bg-light-subtle shadow p-3">
+            <div class="form-group d-flex justify-content-evenly m-3">
+              <button id="submitbutton" type="button" class="btn btn-primary btn-lg border-primary-subtle rounded-5 shadow-sm"><i class="bi bi-calculator-fill"></i> Laske</button>
+              <button id="maxbutton" type="button" class="btn btn-warning btn-lg border-danger-subtle rounded-5 shadow-sm"><i class="bi bi-fire"></i> Maksimit</button>
+            </div>
+            <h4 class="text-body-tertiary m-3">Tulokset</h4>
+            <div id="resultPower" class="alert shadow-sm" role="alert"></div>
+            <div id="resultWeight2Power" class="alert shadow-sm" role="alert"></div>
+          </section>
+        </div>
+      </div>
     </form>
-    <div style="clear: both;">
-
-    </div>
-    <footer>
+    <footer class="m-3 p-3 text-body-tertiary">
       <h3>
         Huomioita:
       </h3>
       <ul>
         <li>
-          Lähteenä käytetty <a href="https://www.wheels.fi/muutoskatsastus-ja-moottorin-vaihto-saannot/" target="_blank">wheels.fi:n artikkelia</a> moottorinvaihtosäännöistä sekä määräystä auton ja sen perävaunun rakenteen muuttamisesta <a href="https://www.finlex.fi/data/normit/46612/01_Auton_ja_sen_peravaunun_rakenteen_muuttaminen.pdf">TRAFICOM/194495/03.04.03.00/2019</a>.
+          Lähteenä käytetty <a rel="noopener" href="https://www.wheels.fi/muutoskatsastus-ja-moottorin-vaihto-saannot/" target="_blank">wheels.fi:n artikkelia</a> moottorinvaihtosäännöistä sekä määräystä auton ja sen perävaunun rakenteen muuttamisesta <a href="https://www.finlex.fi/data/normit/46612/01_Auton_ja_sen_peravaunun_rakenteen_muuttaminen.pdf">TRAFICOM/194495/03.04.03.00/2019</a>.
         </li>
         <li>
           Tulokset ovat keltaisella, mikäli ollaan tasan raja-arvoissa. Pyöristysvirheen vaara on olemassa.
@@ -150,12 +165,14 @@
         </li>
         <li>
           Hevosvoimamuunnoksessa käytetään kerrointa 1 hv = <span id="siHorsePower"></span> kW SI-järjestelmän mukaisessa hevosvoimassa ja 1 hv = <span id="uscHorsePower"></span> kW englannissa ja yhdysvalloissa yleisesti käytössä olevissa järjestelmissä
-          (USC/IU). Lähde: <a href="http://www.autowiki.fi/index.php/Hevosvoima" target="_blank">autowiki.fi.</a>
+          (USC/IU). Lähde: <a rel="noopener" href="http://www.autowiki.fi/index.php/Hevosvoima" target="_blank">autowiki.fi.</a>
         </li>
         <li>
           Lähdekoodi: <a href="https://github.com/bantza/moottorinvaihtolaskuri/">github.com/bantza/moottorinvaihtolaskuri/</a>
         </li>
       </ul>
     </footer>
+  </div>
+</div>
   </body>
 </html>
