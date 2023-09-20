@@ -1,7 +1,9 @@
 :root{
   --bs-warning-rgb: 250,128,7;
 }
-
+.dropdown-item{
+  cursor: pointer;
+}
 .input-group {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
