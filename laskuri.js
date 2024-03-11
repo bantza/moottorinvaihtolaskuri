@@ -384,6 +384,11 @@ document.addEventListener("DOMContentLoaded", function () {
     calculatePower(thisElement);
   });
 
+  addEventListeners($class('input-weight'), 'change', function (event) {
+    const thisElement = event.currentTarget;
+    calculateWeight(thisElement);
+  });
+  
   addEventListeners($class('input-weight'), 'keyup', function (event) {
     const thisElement = event.currentTarget;
     calculateWeight(thisElement);
@@ -411,5 +416,5 @@ document.addEventListener("DOMContentLoaded", function () {
   $id('uscHorsePower').textContent = formatFloatValue(uscHorsePower);
   callEventListeners($id('maxbutton'), 'click');
   calculate();
-  callEventListeners($all('.kg .input-weight'), 'keyup');
+  //callEventListeners($all('.kg .input-weight'), 'keyup');
 });
