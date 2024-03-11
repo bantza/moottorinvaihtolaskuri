@@ -416,5 +416,5 @@ document.addEventListener("DOMContentLoaded", function () {
   $id('uscHorsePower').textContent = formatFloatValue(uscHorsePower);
   callEventListeners($id('maxbutton'), 'click');
   calculate();
-  //callEventListeners($all('.kg .input-weight'), 'keyup');
+  callEventListeners($all('.kg .input-weight'), 'keyup');
 });
